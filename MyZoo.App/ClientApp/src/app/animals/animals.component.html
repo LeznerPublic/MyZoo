@@ -1,0 +1,18 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>All Animals</mat-card-title>
+                <div class="table-responsive smart-table">
+                    <ng2-smart-table [settings]="settings" [source]="source" (edit)="onEdit($event)" (editConfirm)="onEditConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)" (custom)="onCustom($event)" class="mat-table no-wrap"></ng2-smart-table>
+                </div>
+
+
+                <button mat-fab color="primary" (click)="addAnimal($event)">
+                    <mat-icon>add</mat-icon>
+                </button>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

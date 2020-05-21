@@ -1,0 +1,58 @@
+<div fxLayout="row wrap">
+    <div class="card-group">
+
+        <!-- <mat-card>
+            <mat-card-content>
+                <mat-icon class="text-info">pets</mat-icon>
+                <h3 class="m-0">{{animalsCount}}</h3>
+                <h5 class="text-muted m-t-0 m-b-10">Total</h5>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <mat-icon class="text-info">cake</mat-icon>
+                <h3 class="m-0">{{birthdayName}}</h3>
+                <h5 class="text-muted m-t-0 m-b-10">Birthday</h5>
+            </mat-card-content>
+        </mat-card> -->
+
+        <mat-progress-bar [mode]="'indeterminate'" *ngIf="showProgressBar"></mat-progress-bar>
+
+    </div>
+</div>
+
+<div fxLayout="row wrap">
+    <div *ngIf="animalsByTypeChartData.length>1" fxFlex.gt-md="33.33" fxFlex.gt-xs="33.33" fxFlex="33.33">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Animals </mat-card-title>
+                <mat-card-subtitle>By Type</mat-card-subtitle>
+                <div class="text-center">
+                    <canvas baseChart [data]="animalsByTypeChartData" [labels]="animalsByTypeChartLabels" [chartType]="doughnutChartType" [legend]="showChartLegend" [options]="doughnutChartOptions" [colors]="[{backgroundColor: ['#005073', '#107dac', '#189ad3','#1ebbd7', '#71c7ec']}]"></canvas>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="animalsByGenderChartData.length>1" fxFlex.gt-md="33.33" fxFlex.gt-xs="33.33" fxFlex="33.33">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Animals</mat-card-title>
+                <mat-card-subtitle>By Gender</mat-card-subtitle>
+                <div class="text-center">
+                    <canvas baseChart [data]="animalsByGenderChartData" [labels]="animalsByGenderChartLabels" [chartType]="doughnutChartType" [legend]="showChartLegend" [options]="doughnutChartOptions" [colors]="[{backgroundColor: ['#005073', '#107dac', '#189ad3','#1ebbd7', '#71c7ec']}]"></canvas>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="animalsByAgeChartData.length>1" fxFlex.gt-md="33.33" fxFlex.gt-xs="33.33" fxFlex="33.33">
+        <mat-card>
+            <mat-card-content>
+                <mat-card-title>Animals</mat-card-title>
+                <mat-card-subtitle>By Age</mat-card-subtitle>
+                <div class="text-center">
+                    <canvas baseChart [data]="animalsByAgeChartData" [labels]="animalsByAgeChartLabels" [chartType]="doughnutChartType" [legend]="showChartLegend" [options]="doughnutChartOptions" [colors]="[{backgroundColor: ['#005073', '#107dac', '#189ad3','#1ebbd7', '#71c7ec']}]"></canvas>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
