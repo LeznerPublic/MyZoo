@@ -6,7 +6,7 @@ namespace MyZoo.Models
 {
     public class AnimalTypeModel
     {
-        public int TypeId { get; set; }
-        public string Type { get; set; }
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }

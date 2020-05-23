@@ -9,7 +9,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AnimalsComponent } from './animals/animals.component';
-import { MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule} from '@angular/material';
+import { MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule, MatButtonModule, MatFormFieldModule, MatCheckboxModule, MatSelectModule, MatInputModule} from '@angular/material';
 import { MatCardModule ,MatIconModule,MatProgressBarModule} from '@angular/material';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -43,8 +43,8 @@ import { NewAnimalComponent } from './new-animal/new-animal.component';
       { path: 'new-animal', component: NewAnimalComponent },
     ]),
     BrowserAnimationsModule,
-    MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule,
-    MatCardModule,MatIconModule,MatProgressBarModule,MatButtonModule,MatFormFieldModule,MatCheckboxModule,
+    MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule,MatInputModule,
+    MatCardModule,MatIconModule,MatProgressBarModule,MatButtonModule,MatFormFieldModule,MatCheckboxModule,MatSelectModule,
     Ng2SmartTableModule,
     ChartistModule,
     ChartsModule,

@@ -49,21 +49,37 @@ namespace MyZoo.Api.Controllers
         {
             return Enum.GetValues(typeof(AnimalType))
                     .Cast<AnimalType>()
-                    .Select(v => new AnimalTypeModel() { Type = v.ToString(), TypeId = (int)v })
+                    .Select(v => new AnimalTypeModel() { Key = v.ToString(), Value = v.ToString() })
                     .ToList();
         }
 
-        [Route("get-animal-statistics")]
+        [Route("get-statistics-by-type")]
         [HttpGet]
-        public IEnumerable<StatisticModel> GetAnimalStatistics()
+        public IEnumerable<StatisticModel> GetStatisticsByType()
         {
             return allAnimals.GroupBy(x => x.Type).Select(x => new StatisticModel() { Key = x.Key, Value = x.Count() }).ToList();
+        }
+
+        [Route("get-statistics-by-gender")]
+        [HttpGet]
+        public IEnumerable<StatisticModel> GetStatisticsByGender()
+        {
+            return allAnimals.GroupBy(x => x.Gender).Select(x => new StatisticModel() { Key = x.Key, Value = x.Count() }).ToList();
+        }
+
+        [Route("get-statistics-by-age")]
+        [HttpGet]
+        public IEnumerable<StatisticModel> GetStatisticsByAge()
+        {
+            return allAnimals.GroupBy(x => x.Age).Select(x => new StatisticModel() { Key = x.Key.ToString(), Value = x.Count() }).ToList();
         }
 
         [Route("add-animal")]
         [HttpPost]
         public IEnumerable<AnimalModel> AddAnimal([FromBody] AnimalModel animal)
         {
+            var newId = (allAnimals.Select(x => x.Id).Max()) + 1;
+            animal.Id = newId;
             allAnimals.Add(animal);
             return allAnimals;
         }

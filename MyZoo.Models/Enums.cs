@@ -8,8 +8,14 @@ namespace MyZoo.Models
     {
         public enum AnimalType
         {
-            Tiger = 1,
-            Lion = 2,
+            Tiger,
+            Lion,
+            Giraffe,
+            Koala,
+            Antelope,
+            Reindeer,
+            Rhinoceros,
+            Penguin
         }
     }
 }

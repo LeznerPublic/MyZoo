@@ -1,0 +1,31 @@
+.new-animal {
+    margin: 20px auto auto auto;
+    margin-right: 50px;
+    display: flex;
+    background-size: cover;
+    align-items: top;
+}
+
+.mat-card {
+    margin: 0px 15px;
+    background-color: #f8f8f9;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.new-animal-box {
+    background-color: transparent;
+    max-width: 400px;
+    min-width: 380px;
+    margin: 0 0 auto auto;
+    vertical-align: middle;
+    right: 3%;
+}
+
+.support-text {
+    margin-top: -15px;
+    display: block;
+    padding-bottom: 15px;
+}

@@ -67,6 +67,7 @@ export let _data = [];
 })
 export class AnimalsComponent implements OnInit {
 
+
  
 
   source: LocalDataSource;
@@ -101,26 +102,40 @@ export class AnimalsComponent implements OnInit {
 
   onEditConfirm(event) {
     console.log(event);
+    if (window.confirm('Are you sure you want to update?')) {
+      this.updateAnimal(event.newData.id,event.newData.name,event.newData.description,event.newData.age);
 
-
-    this.updateAnimal(event.newData.Id,event.newData.PricePerLine,event.newData.TotalPrice,event.newData.Currency);
-
-    event.confirm.resolve(event.newData);
-
-  }
-  updateAnimal(Id: any, PricePerLine: any, TotalPrice: any, Currency: any) {
-    //throw new Error("Method not implemented.");
-  }
-
-  onDeleteConfirm(event) {
-    console.log(event);
-    if (window.confirm('Are you sure you want to delete?')) {
-      //call to remote api, remember that you have to await this
       event.confirm.resolve(event.newData);
     } 
     else {
       event.confirm.reject();
     }
+  }
+
+  updateAnimal(id: number, name: string, description: string, age: number) {
+    this.service.updateAnimal(id, name ,description,age).subscribe(res=>{
+      console.log(res);
+    },res => {console.error(res);
+    });
+  }
+
+  onDeleteConfirm(event) {
+    console.log(event);
+    if (window.confirm('Are you sure you want to delete?')) {
+      this.deleteAnimal(event.data.id);
+
+      event.confirm.resolve();
+    } 
+    else {
+      event.confirm.reject();
+    }
+  }
+
+  deleteAnimal(id: number) {
+    this.service.deleteAnimal(id).subscribe(res=>{
+      console.log(res);
+    },res => {console.error(res);
+    });
   }
 
   onCustom(event) {
@@ -132,5 +147,7 @@ export class AnimalsComponent implements OnInit {
           break;
       }
   }
+
+
 
 }
