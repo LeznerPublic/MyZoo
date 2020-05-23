@@ -43,6 +43,9 @@ export class StatisticsComponent implements OnInit {
   animalsByGenderChartLabels: Array<string> = [];
   animalsByGenderChartData: Array<number> = [];
 
+  animalsByAgeChartLabels: Array<string> = [];
+  animalsByAgeChartData: Array<number> = [];
+
 
   constructor(private service: ZooDataService) { 
     this.getStatistics();
@@ -60,9 +63,6 @@ export class StatisticsComponent implements OnInit {
   birthdayName:string;
 
 
- 
-  animalsByAgeChartLabels: Array<string> = ['3','5','7','9','11'];
-  animalsByAgeChartData: Array<number> = [2,1,1,1,1];
 
   barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -106,6 +106,14 @@ export class StatisticsComponent implements OnInit {
     });
     this.service.getStatisticsByAge().subscribe(res=>{
       console.log(res);
+      this.animalsByAgeChartLabels = [];
+      this.animalsByAgeChartData = [];
+      var data = <KeyValuePair[]>res;
+      data.forEach(item => {
+        this.animalsByAgeChartLabels.push(item.key);
+        this.animalsByAgeChartData.push(item.value);
+      });
+      
     },res => {console.error(res);
     });
   }

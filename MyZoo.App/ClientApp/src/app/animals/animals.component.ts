@@ -150,6 +150,7 @@ export class AnimalsComponent implements OnInit {
   deleteAnimal(id: number) {
     this.service.deleteAnimal(id).subscribe(res=>{
       console.log(res);
+      this.animalChanged.emit();
     },res => {console.error(res);
     });
   }

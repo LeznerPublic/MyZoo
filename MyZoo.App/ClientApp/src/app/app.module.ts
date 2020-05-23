@@ -19,8 +19,8 @@ import { ChartistModule } from 'ng-chartist';
 import { ChartsModule } from 'ng2-charts';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { GalleryComponent } from './gallery/gallery.component';
 import { NewAnimalComponent } from './new-animal/new-animal.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -30,8 +30,8 @@ import { NewAnimalComponent } from './new-animal/new-animal.component';
     HomeComponent,
     AnimalsComponent,
     StatisticsComponent,
-    GalleryComponent,
     NewAnimalComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,8 +39,7 @@ import { NewAnimalComponent } from './new-animal/new-animal.component';
     FormsModule,ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'animals', component: AnimalsComponent },
-      { path: 'new-animal', component: NewAnimalComponent },
+      { path: 'about', component: AboutComponent },
     ]),
     BrowserAnimationsModule,
     MatTableModule, MatPaginatorModule, MatSortModule, MatDialogModule,MatInputModule,
