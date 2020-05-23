@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 import { ZooDataService } from '../services/zoo-data.service';
 import { KeyValue } from '@angular/common';
 import { KeyValuePair } from '../interfaces/key-value-pair';
+import { Subscription, Observable } from 'rxjs';
 
 export interface Chart {
   type: ChartType;
@@ -29,6 +30,10 @@ const ELEMENT_DATA: Element[] = []
 })
 export class StatisticsComponent implements OnInit {
 
+  private eventsSubscription: Subscription;
+
+  @Input() events: Observable<void>;
+  
   showProgressBar: boolean;
 
   
@@ -44,6 +49,11 @@ export class StatisticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.eventsSubscription = this.events.subscribe(() => this.getStatistics());
+  }
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe();
   }
 
   animalsCount:number;

@@ -11,6 +11,7 @@ import {
 import { ZooDataService } from '../services/zoo-data.service';
 import { Animal } from '../interfaces/animal';
 import { KeyValuePair } from '../interfaces/key-value-pair';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-new-animal',
@@ -21,7 +22,7 @@ export class NewAnimalComponent implements OnInit {
 
   animalTypes:KeyValuePair[];
 
-  constructor(private fb: FormBuilder,private service: ZooDataService) { 
+  constructor(public dialogRef: MatDialogRef<NewAnimalComponent>, private fb: FormBuilder,private service: ZooDataService) { 
     this.service.getAnimalTypes().subscribe(res=>{
       console.log(res);
       this.animalTypes = <KeyValuePair[]>res;
@@ -54,7 +55,7 @@ export class NewAnimalComponent implements OnInit {
 
     this.service.addAnimal(request).subscribe(res=>{
       console.log(res);
-      
+      this.dialogRef.close();
     });
   }
 

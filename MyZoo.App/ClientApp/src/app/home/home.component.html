@@ -1,3 +1,3 @@
-<app-statistics></app-statistics>
+<app-statistics [events]="eventsSubject.asObservable()"></app-statistics>
 
-<app-animals></app-animals>
+<app-animals (animalChanged)="emitEventToStatisticsComponent()"></app-animals>

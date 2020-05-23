@@ -1,11 +1,24 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ZooDataService } from '../services/zoo-data.service';
 import { Router } from '@angular/router';
 import { Animal } from '../interfaces/animal';
+import { MatDialog } from '@angular/material';
+import { NewAnimalComponent } from '../new-animal/new-animal.component';
+
+export let dialog: MatDialog;
+
+export let openNewAnimalComponent = function(): void {
+  const dialogRef = dialog.open(NewAnimalComponent, {});
+
+  dialogRef.afterClosed().subscribe(result => {
+    this.getAllAnimals();
+  });
+
+  
+}
 
 export let _settings = {
-  //hideSubHeader: true,
   columns: {
     id: {
       title: 'Id',
@@ -68,13 +81,14 @@ export let _data = [];
 export class AnimalsComponent implements OnInit {
 
 
- 
+  @Output() animalChanged = new EventEmitter();
 
   source: LocalDataSource;
   settings = _settings;
   animals: Animal[];
 
-  constructor(private router: Router,private service: ZooDataService) { 
+  constructor(private router: Router,private service: ZooDataService, public _dialog: MatDialog) { 
+    dialog = _dialog;
     this.source = new LocalDataSource(_data); 
     this.getAllAnimals();
   }
@@ -87,17 +101,19 @@ export class AnimalsComponent implements OnInit {
       console.log(res);
       var data = <Animal[]>res;
       this.source.load(data);
-      
+      this.animalChanged.emit();
     },res => {
       console.log(res);
     });
   }
 
-  onEdit(event) {
-  }
 
   addAnimal(event){
+    const dialogRef = dialog.open(NewAnimalComponent, {});
 
+    dialogRef.afterClosed().subscribe(result => {
+    this.getAllAnimals();
+    });
   }
 
   onEditConfirm(event) {
@@ -136,16 +152,6 @@ export class AnimalsComponent implements OnInit {
       console.log(res);
     },res => {console.error(res);
     });
-  }
-
-  onCustom(event) {
-    switch(event.action){
-      case "DoWork":
-        // this.DoWork(event);
-        break;
-      default:
-          break;
-      }
   }
 
 
