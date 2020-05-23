@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyZoo.Models;
 using MyZoo.Models.SampleData;
+using static MyZoo.Models.Enums;
 
-namespace MyZoo.App.Controllers
+namespace MyZoo.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -25,6 +26,16 @@ namespace MyZoo.App.Controllers
             allAnimals = MyZooData.defaultZooAnimals;
         }
 
+        [HttpGet]
+        public string Get()
+        {
+            return "Welcome to MyZoo.API";
+        }
+
+        /// <summary>
+        /// https://localhost:44336/api/myzoo/get-all-animals
+        /// </summary>
+        /// <returns></returns>
         [Route("get-all-animals")]
         [HttpGet]
         public IEnumerable<AnimalModel> GetAllAnimals()
@@ -32,10 +43,73 @@ namespace MyZoo.App.Controllers
             return allAnimals;
         }
 
+        [Route("get-animal-types")]
         [HttpGet]
-        public IEnumerable<AnimalModel> Get()
+        public IEnumerable<AnimalTypeModel> GetAnimalTypes()
         {
+            return Enum.GetValues(typeof(AnimalType))
+                    .Cast<AnimalType>()
+                    .Select(v => new AnimalTypeModel() { Key = v.ToString(), Value = v.ToString() })
+                    .ToList();
+        }
+
+        [Route("get-statistics-by-type")]
+        [HttpGet]
+        public IEnumerable<StatisticModel> GetStatisticsByType()
+        {
+            return allAnimals.GroupBy(x => x.Type).Select(x => new StatisticModel() { Key = x.Key, Value = x.Count() }).ToList();
+        }
+
+        [Route("get-statistics-by-gender")]
+        [HttpGet]
+        public IEnumerable<StatisticModel> GetStatisticsByGender()
+        {
+            return allAnimals.GroupBy(x => x.Gender).Select(x => new StatisticModel() { Key = x.Key, Value = x.Count() }).ToList();
+        }
+
+        [Route("get-statistics-by-age")]
+        [HttpGet]
+        public IEnumerable<StatisticModel> GetStatisticsByAge()
+        {
+            return allAnimals.GroupBy(x => x.Age).Select(x => new StatisticModel() { Key = x.Key.ToString(), Value = x.Count() }).ToList();
+        }
+
+        [Route("add-animal")]
+        [HttpPost]
+        public IEnumerable<AnimalModel> AddAnimal([FromBody] AnimalModel animal)
+        {
+            var newId = (allAnimals.Select(x => x.Id).Max()) + 1;
+            animal.Id = newId;
+            allAnimals.Add(animal);
             return allAnimals;
         }
+
+        [Route("delete-animal")]
+        [HttpPost]
+        public IEnumerable<AnimalModel> DeleteAnimal([FromBody] AnimalModel animal)
+        {
+            var animalToDelete = allAnimals.Where(x => x.Id == animal.Id).FirstOrDefault();
+            if (animalToDelete != null)
+            {
+                allAnimals.Remove(animalToDelete);
+            }
+            return allAnimals;
+        }
+
+        [Route("update-animal")]
+        [HttpPost]
+        public IEnumerable<AnimalModel> UpdateAnimal([FromBody] AnimalModel animal)
+        {
+            var animalToUpdate = allAnimals.Where(x => x.Id == animal.Id).FirstOrDefault();
+            if (animalToUpdate != null)
+            {
+                animalToUpdate.Name = animal.Name;
+                animalToUpdate.Description = animal.Description;
+                animalToUpdate.Age = animal.Age;
+            }
+            return allAnimals;
+        }
+
+
     }
 }

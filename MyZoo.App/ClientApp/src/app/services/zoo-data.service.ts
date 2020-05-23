@@ -78,7 +78,9 @@ export class ZooDataService {
   }
 
   getServerUrl() {
-    // return this.baseUrl;
-    return "https://localhost:44336"
+    if(this.baseUrl.includes('localhost:4200'))
+      return "https://localhost:44336"
+
+      return this.baseUrl.replace(/\/$/, "");;
   }
 }
